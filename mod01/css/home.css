@@ -1,0 +1,80 @@
+.bodyclass{
+    width: 1000px;
+    height: 585px;
+}
+.cs-bg{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url('../sco/img/background.png') no-repeat;
+    background-size: 100% 100%;   
+}
+.cs-ifm-box{
+    position: absolute;
+    margin: 12px 0 0 54px;
+    width: 848px;
+    height: 495px;
+    background: url('../sco/img/iframbg.png') no-repeat;
+    background-size: 100% 100%;
+ 
+}
+.cs-icon-r{
+    position: absolute;
+    top: 38px;
+    left:912px ;
+    width: 72px;
+    height: 208px;
+    background: url('../sco/img/hp.png') no-repeat;
+    background-size: 100% 100%;    
+}
+iframe{
+    position: absolute;
+    left: 85px;
+    top: 56px;
+    width:679px;
+    height:383px;
+    /* display: none; */
+}
+.cs-box-btn{
+    position: absolute;
+    display: flex;
+    bottom: 21px;
+    width:100%;
+    height:44px;   
+}
+.cs-btn-home{
+    text-align: center;
+    width: 291px;
+    height: 46px;
+    background: url('../sco/img/BtnFBg.png') no-repeat;
+    background-size: 100% 100%;    
+    font-size:20px;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(202,18,23,1);
+    line-height:44px;
+}
+
+.cs-btn-home:not(first-child){
+    margin-left: 24px;
+}
+.cs-btn-choose{
+    color:rgba(139,87,42,1);
+    width: 291px;
+    height: 46px;
+    background: url('../sco/img/BtnTBg.png') no-repeat;
+    background-size: 100% 100%;  
+}
+.cs-box-b{
+    position: relative;
+}
+.cs-icon-finish{
+    position: absolute;
+    top: 0px;
+    right: 0;
+    width: 56px;
+    height: 64px;
+    background: url('../sco/img/done.png') no-repeat;
+    background-size: 100% 100%;  
+    display: none;
+}
