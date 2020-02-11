@@ -361,5 +361,7 @@
     display: inline-block;
   }
 
-  
+  #my-player{
+    display: none;
+}
 

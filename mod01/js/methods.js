@@ -81,11 +81,16 @@ function getCurrentContent(btnCom, videoListIndex, listItem, doSomeThing, isCont
 }
 
 //看完后设置状态 选中的class，未选中的class，选中div内的文本class
-function setStatus(that, chooseBtn, chooseTxtColor, comBtn, isDbChoose) {
-    if (!isDbChoose) {
-        $("." + comBtn).removeClass(chooseBtn + ' ' + chooseTxtColor)
-    }
-    $(that).addClass(chooseBtn).addClass(chooseTxtColor)
+function setStatus(that, chooseBtn, comBtn, isDbChoose) {
+    if (isDbChoose) {
+        $(that).toggleClass(chooseBtn);
+        if (chooseTxtColor) {
+            // $(that).toggleClass(chooseTxtColor);
+        }
+    }else{
+        $("." + comBtn).removeClass(chooseBtn)
+        $(that).addClass(chooseBtn)
+    }  
 }
 
 //classArry 0:公用class,1选中按钮背景色class，2选中按钮字体颜色class
@@ -96,7 +101,7 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
     chooseList.each(function (idx, ele) {
         $(ele).data('number', idx);
     });
-    $(btn).click(function (e) {
+    $(btn).unbind().click(function (e) {
         var $that = this;
         var id = $(this).data('number');
         //点击触发事件，如显示✅
@@ -105,7 +110,7 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
         }
         if (type == 'singleChoose') {
             choose('singleChoose', listItemChoose, rightAnswer, id, doSomeThing);
-            setStatus($that, classArry[1], classArry[2], classArry[0]);
+            setStatus($that, classArry[1], classArry[0], false);
         }
         if (type == 'dbChoose') {
             listItemChoose.splice(id, 1, !listItemChoose[id]);
@@ -116,8 +121,9 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
                 choose('dbChoose', listItemChoose, rightAnswer, id, doSomeThing, dbChooseHasTwoAnswer);
                 console.log('come in');
             }, 3000);
+            setStatus($that, classArry[1], classArry[0], true);
         }
-        setStatus($that, classArry[1], classArry[2], classArry[0], true);
+        
 
     })
 }
@@ -181,8 +187,8 @@ function choose(chooseType, arry, trueArry, index, doSomeThing, dbChooseHasTwoAn
 }
 
 
-// type1:一一对应，不对则返回；
-// type2：不一一对应，对的进
+// type1:一对一，不对则返回；
+// type2：多对一，对的进
 //dragBox 拖动块存放的box id/class
 //dropBox 存放的box id/class
 //dragNumbers 可拖动的元素个数
