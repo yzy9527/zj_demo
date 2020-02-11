@@ -64,7 +64,7 @@ function stopAudioPlay() {
 
 //点击播放当前按钮 公用class 视频索引值 列表数组;
 function getCurrentContent(btnCom, videoListIndex, listItem, doSomeThing, isContent) {
-    $('.' + btnCom).click(function (e) {
+    $('.' + btnCom).unbind().click(function (e) {
         stopAudioPlay()
         var numId = e.currentTarget.id;
         var id = parseInt(numId.replace(/[^\d]/g, ''));
@@ -144,12 +144,12 @@ function choose(chooseType, arry, trueArry, index, doSomeThing, dbChooseHasTwoAn
         if (flag == 1) {
             console.log('答对了');
             // audioPlay(1,function(){
-                doSomeThing();
+                doSomeThing(true);
             // });
             return true;
         } else {
             console.log('答错了');
-            doSomeThing();
+            doSomeThing(false);
             // audioPlay(2);
             return false;
         }
