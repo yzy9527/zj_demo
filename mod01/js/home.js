@@ -1,6 +1,10 @@
 //模块完成情况
 var finishStatus = [false,false,true];
 var OnlineStatus = false;
+//192等开头则为本地
+if (/[a-zA-Z]/.test(window.location.host)) {
+    OnlineStatus = true;
+}
 var moduleList = [
     './module1.html',
     './module2.html',

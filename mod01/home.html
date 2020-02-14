@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="./css/home.css">
     <link href="./sco/img/favicon.ico" rel="shortcut icon">
     <script>
-    if (window.location.host == 'djg-ztjy.shec.edu.cn') {
-        document.domain = 'shec.edu.cn';
+    if (/[a-zA-Z]/.test(window.location.host)) {
+      document.domain = window.location.host.replace(/\w*-?\w*\.*/,'');
     }
     </script>
 </head>
