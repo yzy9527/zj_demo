@@ -16,6 +16,7 @@ var Video = function () {
      });
     this.play = function (videoArry, doSomeThing) {
         $('#' + videoId).css('display', 'block');
+        stopAudioPlay()
         player.show();
         var url = videoUrlList[videoArry[0]];
         player.src({ type: "video/mp4", src: url });
@@ -280,7 +281,7 @@ function startDrag(dragType, dragBox, dropBox, dragNumbers, dropNumbers, dragCla
             }
         } else {
             if (typeof dragCallBack == "function") {
-                dragCallBack(true, cardNumber, ui.draggable)
+                dragCallBack(false, cardNumber, ui.draggable)
             }
         }
         // If all the cards have been placed correctly then display a message
