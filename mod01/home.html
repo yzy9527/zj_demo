@@ -12,9 +12,11 @@
     <link rel="stylesheet" href="./css/home.css">
     <link href="./sco/img/favicon.ico" rel="shortcut icon">
     <script>
-    if (/[a-zA-Z]/.test(window.location.host)) {
-      document.domain = window.location.host.replace(/\w*-?\w*\.*/,'');
-    }
+    (function() {
+        if (/[a-zA-Z]/.test(window.location.host)) {
+            document.domain = window.location.host.replace(/\w*-?\w*\.*/, '');
+        }
+    })()
     </script>
 </head>
 
@@ -37,11 +39,8 @@
                 <span num="2" class="cs-btn-home cs-btn-h2">行动实践：小论坛议家风</span>
                 <div class="cs-icon-finish Icon2"></div>
             </div>
-
         </div>
     </main>
-
-
     <script src="./js/utils/jquery-1.11.3.js"></script>
     <script src="./js/utils/jquery-ui.js"></script>
     <script src="./js/utils/soundmanager2.js"></script>

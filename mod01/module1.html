@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="./css/com/video.css">
     <link rel="stylesheet" href="./css/module1.css">
     <script>
-    if (/[a-zA-Z]/.test(window.location.host)) {
-      document.domain = window.location.host.replace(/\w*-?\w*\.*/,'');
-    }
+    (function() {
+        if (/[a-zA-Z]/.test(window.location.host)) {
+            document.domain = window.location.host.replace(/\w*-?\w*\.*/, '');
+        }
+    })()
     </script>
     <title>1</title>
 </head>
