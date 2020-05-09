@@ -21,7 +21,9 @@ var Video = function () {
         var url = videoUrlList[videoArry[0]];
         player.src({ type: "video/mp4", src: url });
         player.load();
-        player.play();
+        setTimeout(function(){
+            player.play();
+        },0)
         player.on("ended", function () {
             videoArry.splice(0, 1)
             if (videoArry.length != 0) {
