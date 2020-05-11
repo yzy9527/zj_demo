@@ -34,6 +34,10 @@ var Video = function () {
                 if (this.isFullscreen()) {
                     this.exitFullscreen()
                 }
+                //修复uc浏览器使用被劫持的全屏方法播放视频后不能自动退出全屏
+                if (navigator.userAgent.indexOf('UCBrowser')!= -1) {
+                    document.getElementsByTagName('video')[0].webkitExitFullScreen()
+                }
                 this.hide();
                 if (typeof doSomeThing == "function") {
                     doSomeThing()
