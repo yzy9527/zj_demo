@@ -302,3 +302,21 @@ function startDrag(dragType, dragBox, dropBox, dragNumbers, dropNumbers, dragCla
     }
 }
 
+//适配Android
+
+function showNextBtn(num,cbk) {
+    $('<div class="showMaskBox"><div class="showMask"></div><span class="mask-btn"></span></div>').appendTo('#maskjs');
+    $('.mask-btn').unbind().click(function() {
+        $('.showMaskBox').css('display','none');
+        audioPlay(num,cbk)
+    })
+}
+
+var isAndroid = false;
+checkPhone();
+// 安卓浏览器全屏播放之后不自动退出，添加按钮-继续学习
+function checkPhone() {
+    if (navigator.userAgent.indexOf('Android') !== -1) {
+        isAndroid = true;
+    }
+}
