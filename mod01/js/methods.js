@@ -1,30 +1,28 @@
 var videoUrlList = [
     //概述
-    '',//0
+    '', //0
 ]
 
 var audioList = [
-    './sco/audio/blank.mp3',//0
+    './sco/audio/blank.mp3', //0
 
 ]
 var player;
-var Video = function () {
+var Video = function() {
     var $this = this;
     var videoId = 'my-player';
     var player = videojs(videoId, {}, function onPlayerReady() {
         console.log('ready');
-     });
-    this.play = function (videoArry, doSomeThing) {
+    });
+    this.play = function(videoArry, doSomeThing) {
         $('#' + videoId).css('display', 'block');
         stopAudioPlay()
         player.show();
         var url = videoUrlList[videoArry[0]];
         player.src({ type: "video/mp4", src: url });
         player.load();
-        setTimeout(function(){
-            player.play();
-        },0)
-        player.on("ended", function () {
+        player.play();
+        player.on("ended", function() {
             videoArry.splice(0, 1)
             if (videoArry.length != 0) {
                 player.off('ended')
@@ -35,7 +33,7 @@ var Video = function () {
                     this.exitFullscreen()
                 }
                 //修复uc浏览器使用被劫持的全屏方法播放视频后不能自动退出全屏
-                if (navigator.userAgent.indexOf('UCBrowser')!= -1) {
+                if (navigator.userAgent.indexOf('UCBrowser') != -1) {
                     document.getElementsByTagName('video')[0].webkitExitFullScreen()
                 }
                 this.hide();
@@ -45,16 +43,33 @@ var Video = function () {
                 videojs.log('Awww...over so soon?!');
             }
         })
+        this.pause = function(fn) {
+            player.pause()
+            fn()
+        }
+        //ipad safari
+        player.on('fullscreenchange', function() {
+            if (navigator.userAgent.indexOf('iPad') != -1 && navigator.userAgent.indexOf('Version') != -1) {
+                if (!this.isFullscreen()) {
+                    $(".cs-bg", window.parent.document).css('display', 'block')
+
+                } else {
+                    $(".cs-bg", window.parent.document).css('display', 'none')
+                }
+            }
+
+        })
     }
 }
 player = new Video();
 var _audio = null;
+
 function audioPlay(num, fun, fun2) {
     if (_audio) { _audio.stop() }
     console.log('num', num);
     soundManager.setup({
         useHighPerformance: true,
-        onready: function () {
+        onready: function() {
             _audio = soundManager.createSound({
                 autoPlay: true,
                 autoLoad: true,
@@ -65,13 +80,14 @@ function audioPlay(num, fun, fun2) {
         }
     });
 }
+
 function stopAudioPlay() {
     if (_audio) { _audio.stop() }
 }
 
 //点击播放当前按钮 公用class 视频索引值 列表数组;
 function getCurrentContent(btnCom, videoListIndex, listItem, doSomeThing, isContent) {
-    $('.' + btnCom).unbind().click(function (e) {
+    $('.' + btnCom).unbind().click(function(e) {
         stopAudioPlay()
         var numId = e.currentTarget.id;
         var id = parseInt(numId.replace(/[^\d]/g, ''));
@@ -94,10 +110,10 @@ function setStatus(that, chooseBtn, comBtn, isDbChoose) {
         if (chooseTxtColor) {
             // $(that).toggleClass(chooseTxtColor);
         }
-    }else{
+    } else {
         $("." + comBtn).removeClass(chooseBtn)
         $(that).addClass(chooseBtn)
-    }  
+    }
 }
 
 //classArry 0:公用class,1选中按钮背景色class，2选中按钮字体颜色class
@@ -105,10 +121,10 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
     var tm;
     btn = '.' + classArry[0];
     var chooseList = $(btn);
-    chooseList.each(function (idx, ele) {
+    chooseList.each(function(idx, ele) {
         $(ele).data('number', idx);
     });
-    $(btn).unbind().click(function (e) {
+    $(btn).unbind().click(function(e) {
         var $that = this;
         var id = $(this).data('number');
         //点击触发事件，如显示✅
@@ -124,13 +140,13 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
             if (tm) {
                 clearTimeout(tm)
             }
-            tm = setTimeout(function () {
+            tm = setTimeout(function() {
                 choose('dbChoose', listItemChoose, rightAnswer, id, doSomeThing, dbChooseHasTwoAnswer);
                 console.log('come in');
             }, 3000);
             setStatus($that, classArry[1], classArry[0], true);
         }
-        
+
 
     })
 }
@@ -139,7 +155,7 @@ function checkAnswer(type, classArry, listItemChoose, rightAnswer, clickfunction
 function choose(chooseType, arry, trueArry, index, doSomeThing, dbChooseHasTwoAnswer) {
     var flag = 1;
     if (chooseType == 'singleChoose') {
-        arry.forEach(function (ele, idx) {
+        arry.forEach(function(ele, idx) {
             arry.splice(idx, 1, false);
         })
         arry.splice(index, 1, true);
@@ -151,7 +167,7 @@ function choose(chooseType, arry, trueArry, index, doSomeThing, dbChooseHasTwoAn
         if (flag == 1) {
             console.log('答对了');
             // audioPlay(1,function(){
-                doSomeThing(true);
+            doSomeThing(true);
             // });
             return true;
         } else {
@@ -171,7 +187,7 @@ function choose(chooseType, arry, trueArry, index, doSomeThing, dbChooseHasTwoAn
             }
         };
         if (flag == 1) {
-            setTimeout(function () {
+            setTimeout(function() {
                 doSomeThing(true);
             }, 2000);
             console.log('答对了', arry);
@@ -211,15 +227,16 @@ function startDrag(dragType, dragBox, dropBox, dragNumbers, dropNumbers, dragCla
     for (var i = 1; i <= dragNumbers; i++) {
         numbers.push(i)
     }
-    if (dragType=='type2'&&trueLists) {
+    if (dragType == 'type2' && trueLists) {
         trueLists.forEach(function(element) {
             if (element == 1) {
                 trueNum++
             }
         });
     }
-    console.log('trueNum',trueNum);
+    console.log('trueNum', trueNum);
     $(init);
+
     function init() {
         console.log('初始化');
         // Reset the game
@@ -292,7 +309,7 @@ function startDrag(dragType, dragBox, dropBox, dragNumbers, dropNumbers, dragCla
         }
         // If all the cards have been placed correctly then display a message
         // and reset the cards for another go
-        console.log('correctCards',correctCards,trueNum);
+        console.log('correctCards', correctCards, trueNum);
         if ((dragType == "type1" && correctCards == numbers.length) ||
             (dragType == "type2" && correctCards == trueNum)) {
             if (typeof drgaFinishCallBack == "function") {
@@ -304,11 +321,11 @@ function startDrag(dragType, dragBox, dropBox, dragNumbers, dropNumbers, dragCla
 
 //适配Android
 
-function showNextBtn(num,cbk) {
+function showNextBtn(num, cbk) {
     $('<div class="showMaskBox"><div class="showMask"></div><span class="mask-btn"></span></div>').appendTo('#maskjs');
     $('.mask-btn').unbind().click(function() {
-        $('.showMaskBox').css('display','none');
-        audioPlay(num,cbk)
+        $('.showMaskBox').css('display', 'none');
+        audioPlay(num, cbk)
     })
 }
 
